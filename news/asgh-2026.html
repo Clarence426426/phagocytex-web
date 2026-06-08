@@ -4,6 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ASGH 2026 | Phagocytex News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body class="detail-page">
@@ -13,24 +19,72 @@
       </a>
       <a class="detail-back" href="../index.html#news">Back to news</a>
     </header>
+
     <main class="news-detail">
-      <p class="section-kicker">Event | 11-12 May 2026</p>
+      <p class="section-kicker">Event | 11–12 May 2026</p>
       <h1>Phagocytex joins PolyU healthcare start-ups at ASGH 2026.</h1>
-      <img class="detail-hero-image" src="../assets/hero-biotech.png" alt="Healthcare innovation visual" />
+
+      <div class="slideshow">
+        <div class="slideshow-track">
+          <img src="../assets/AGH1.jpeg" alt="Phagocytex team at ASGH 2026 booth" />
+          <img src="../assets/AGH2.jpeg" alt="Phagocytex exhibition display at ASGH 2026" />
+          <img src="../assets/AGH3.jpeg" alt="Phagocytex team presenting at ASGH 2026" />
+          <img src="../assets/AGH4.jpeg" alt="Phagocytex team at the ASGH 2026 main stage" />
+        </div>
+        <button class="slideshow-btn prev" aria-label="Previous slide">&#8249;</button>
+        <button class="slideshow-btn next" aria-label="Next slide">&#8250;</button>
+        <div class="slideshow-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+
       <p class="detail-lead">
-        Phagocytex is listed among PolyU healthcare-impact start-ups exhibiting at the Asia Summit on Global Health,
-        hosted at the Hong Kong Convention and Exhibition Centre.
+        Today, we're attending the 6th Asia Summit on Global Health (ASGH 2026) in Hong Kong, jointly organised by the
+        Government of the Hong Kong SAR and the HKTDC. This year's theme — "Fuelling Healthcare Breakthroughs" —
+        couldn't be more fitting for our journey.
       </p>
+
       <p>
-        The showcase gives Phagocytex an opportunity to present its macrophage-engineering platform to healthcare,
-        innovation, investment, and biopharma audiences.
+        Walking the floor at ASGH 2026 has been humbling and inspiring. We've connected with brilliant researchers,
+        clinicians, and fellow innovators — and we're especially grateful to KTEO and PolyU for the opportunity to be
+        here.
       </p>
+
+      <p>
+        Come find us at Booth 3F-G10 if you're at the summit today. We'd love to meet you. Thank you to the organisers
+        and everyone who's stopped by. This is just the beginning.
+      </p>
+
       <a
         class="button primary detail-button"
         href="https://www.polyu.edu.hk/kteo/about-kteo/news-and-events/events/2026/05/asgh/"
+        target="_blank"
+        rel="noopener"
       >
         View event profile
       </a>
     </main>
+
+    <script>
+      const track = document.querySelector('.slideshow-track');
+      const dots = document.querySelectorAll('.slideshow-dots .dot');
+      let current = 0;
+      const total = track.children.length;
+
+      function goTo(n) {
+        current = (n + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      document.querySelector('.slideshow-btn.prev').addEventListener('click', () => goTo(current - 1));
+      document.querySelector('.slideshow-btn.next').addEventListener('click', () => goTo(current + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+      setInterval(() => goTo(current + 1), 4000);
+    </script>
   </body>
 </html>

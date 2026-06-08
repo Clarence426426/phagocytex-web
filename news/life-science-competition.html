@@ -26,13 +26,25 @@
 
     <main class="news-detail">
       <p class="section-kicker">Award | 1 Jun 2026</p>
-      <h1>Historic Achievement in Life Science Research.</h1>
-      <img
-        class="detail-hero-image"
-        src="../assets/news-life-science-competition.jpg"
-        alt="Rainbow Leung and Martina Lei presenting the pCAR-M project"
-        onerror="this.onerror=null; this.src='../assets/hero-biotech.png';"
-      />
+      <h1>Phagocytex won the Grand Prize and First Prize at The 12th Hong Kong University Student Innovation and Entrepreneurship Competition.</h1>
+      <div class="slideshow">
+        <div class="slideshow-track">
+          <img src="../assets/news-life-science-competition.jpg" alt="Rainbow Leung and Martina Lei presenting the pCAR-M project" />
+          <img src="../assets/award1.jpeg" alt="Team receiving Grand Prize and First Prize cheques" />
+          <img src="../assets/award2.jpg" alt="Team on stage receiving Grand Prize at the 12th HK University Student Innovation and Entrepreneurship Competition" />
+          <img src="../assets/award3.jpeg" alt="Award ceremony at the 12th HK University Student Innovation and Entrepreneurship Competition" />
+          <img src="../assets/award4.jpeg" alt="Phagocytex team at the 12th HK University Student Innovation and Entrepreneurship Competition" />
+        </div>
+        <button class="slideshow-btn prev" aria-label="Previous slide">&#8249;</button>
+        <button class="slideshow-btn next" aria-label="Next slide">&#8250;</button>
+        <div class="slideshow-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
       <p class="detail-lead">
         ABCT PhD students Dr. Rainbow Leung Wing Hei and Dr. Martina Lei Mang Leng won the Grand Prize and First Prize
         at The 12th Hong Kong University Student Innovation and Entrepreneurship Competition.
@@ -77,9 +89,30 @@
         this new chapter and remains committed to advancing life science research and education, contributing to
         scientific discovery, innovation, and the training of future leaders in the field.
       </p>
-      <a class="button primary detail-button" href="https://www.wenweipo.com/a/202605/31/AP6a1b4d36e4b0b49ad1bd6608.html">
+      <a class="button primary detail-button" href="https://iec.newgen.org.hk/act-album/%e7%ac%ac12%e5%b1%86%e9%a6%99%e6%b8%af%e5%a4%a7%e5%ad%b8%e7%94%9f%e5%89%b5%e6%96%b0%e5%8f%8a%e5%89%b5%e6%a5%ad%e5%a4%a7%e8%b3%bd-%e9%a0%92%e7%8d%8e%e5%85%b8%e7%a6%ae%e8%8a%b1%e7%b5%ae/" target="_blank" rel="noopener">
+        Official Award Announcement
+      </a>
+      <a class="button primary detail-button" href="https://www.wenweipo.com/a/202605/31/AP6a1b4d36e4b0b49ad1bd6608.html" target="_blank" rel="noopener">
         Read Wen Wei Po coverage
       </a>
     </main>
+    <script>
+      const track = document.querySelector('.slideshow-track');
+      const dots = document.querySelectorAll('.slideshow-dots .dot');
+      let current = 0;
+      const total = track.children.length;
+
+      function goTo(n) {
+        current = (n + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      document.querySelector('.slideshow-btn.prev').addEventListener('click', () => goTo(current - 1));
+      document.querySelector('.slideshow-btn.next').addEventListener('click', () => goTo(current + 1));
+      dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+      setInterval(() => goTo(current + 1), 4000);
+    </script>
   </body>
 </html>

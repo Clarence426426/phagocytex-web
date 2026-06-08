@@ -6,9 +6,7 @@ const scrollProgress = document.querySelector("[data-scroll-progress]");
 const hero = document.querySelector(".hero");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const contactRecipients = [
-  "terence.kw.lee@polyu.edu.hk",
-  "clarence-tt.wong@polyu.edu.hk",
-  // Add the other two Phagocytex recipient emails here when available.
+  "clarence426426@gmail.com",
 ];
 
 const setHeaderState = () => {
@@ -93,7 +91,10 @@ const revealTargets = [
   ".metric",
   ".news-card",
   ".team-grid article",
+  ".pipeline-board",
   ".contact",
+  ".hero-panel > div",
+  ".intro .section-grid > *",
 ];
 
 const revealElements = [...new Set(revealTargets.flatMap((selector) => [...document.querySelectorAll(selector)]))];
@@ -151,12 +152,31 @@ const updateScrollProgress = () => {
   scrollProgress?.style.setProperty("--scroll-progress", progress.toFixed(4));
 };
 
+const studyHeroImg = document.querySelector(".study-hero-figure img");
+
 const updateHeroMotion = () => {
   if (!hero) return;
 
   const rect = hero.getBoundingClientRect();
   const progress = Math.min(Math.max(-rect.top / Math.max(rect.height, 1), 0), 1);
   document.documentElement.style.setProperty("--hero-progress", progress.toFixed(4));
+};
+
+const updateParallax = () => {
+  if (!studyHeroImg || reduceMotion) return;
+  const rect = studyHeroImg.parentElement.getBoundingClientRect();
+  const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+  const shift = Math.min(Math.max(center * 0.12, -30), 30);
+  studyHeroImg.style.transform = `translateY(${shift}px) scale(1.06)`;
+};
+
+// Reset parallax once card is visible so zoom-out transition still works
+const patchParallaxOnVisible = () => {
+  if (!studyHeroImg) return;
+  const figure = studyHeroImg.closest(".study-hero-figure");
+  if (figure?.classList.contains("is-visible")) {
+    studyHeroImg.style.transition = "transform 950ms cubic-bezier(0.16, 1, 0.3, 1)";
+  }
 };
 
 const updateRevealState = () => {
@@ -185,6 +205,8 @@ const updateScrollAnimations = () => {
     updateScrollProgress();
     updateHeroMotion();
     updateRevealState();
+    updateParallax();
+    patchParallaxOnVisible();
     scrollTicking = false;
   });
 };
