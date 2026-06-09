@@ -6,7 +6,7 @@ const scrollProgress = document.querySelector("[data-scroll-progress]");
 const hero = document.querySelector(".hero");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const contactRecipients = [
-  "clarence426426@gmail.com",
+  "admin@phagocytex.com",
 ];
 
 const setHeaderState = () => {
@@ -87,6 +87,7 @@ const revealTargets = [
   ".feature-card",
   ".science-flow article",
   ".study-hero-figure",
+  ".study-data-figure",
   ".study-card",
   ".metric",
   ".news-card",
@@ -167,7 +168,7 @@ const updateParallax = () => {
   const rect = studyHeroImg.parentElement.getBoundingClientRect();
   const center = rect.top + rect.height / 2 - window.innerHeight / 2;
   const shift = Math.min(Math.max(center * 0.12, -30), 30);
-  studyHeroImg.style.transform = `translateY(${shift}px) scale(1.06)`;
+  studyHeroImg.style.transform = `translateY(${shift}px)`;
 };
 
 // Reset parallax once card is visible so zoom-out transition still works
